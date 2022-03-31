@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Whack-a-Mole Game</title>
+ <link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+</head>
+
+<script>
+
+window.onload = function() //Will load script when page is loaded
+
+{
+
+
+//
+	// JavaScript Whack-a-Mole Project
+	// Mahmud Kandawala
+	// Date: 11/4/2020
+	
+// 
+
+const start = document.querySelector('button[name="start"]'); //selecting the button with name start
+const moles = document.querySelectorAll('.mole'); // slecting all the moles
+const dirt = document.querySelectorAll('.dirt'); // selecting all the dirt
+const scoreBoard = document.querySelector('.controls .score span');  // selecting the scoreboard
+const restart = document.querySelector('button[name="Over"]'); // selecting button with name restart
+const cursor = document.querySelector('.cursor .pic')  // selecting cursor with image
+
+window.addEventListener("mousemove", (e) => {
+
+  cursor.style.top = e.pageY + "px";   // cursor postion in px - y cord
+  cursor.style.left = e.pageX + "px";  // cursor postion in px - x cord
+
+  window.addEventListener("click", ()=>{  // when clicked
+  cursor.style.animation = "hit 0.1s ease"; //animate for .1 second
+  setTimeout(()=>{
+    cursor.style.removeProperty("animation") // remove animation in .1 second
+  }, 100)
+
+  });
+
+});
+
+
+restart.disabled = true;  // restart button is disabled
+
+let playingGame, interval, last;  // undefined variables
+let score = 0; // score will start from 0
+
+
+function startGame() //startGame function
+{  
+  changeColor();  //calls function
+  playingGame = 20;  // 20 seconds to play
+  scoreBoard.textContent = 0; // score start from 0 will change when mole clicked
+  score = 0; // score start from 0
+  start.disabled = true; //start button disabled
+  restart.disabled = true; // restart button disabled
+  clearInterval(interval); //call function
+  countdown(); //call function
+  showMole(); //call function
+
+   if(playingGame <= 10) //if playGame is less than or equal to 10 ...
+      {
+        changeColor() //call function
+      }
+  
+  
+}
+
+
+function showMole() //function
+{  
+  let mole = randomMole(moles.length),  //length of mole
+      time = randomTime(495, 1010);  // the time between mole display
+      
+  mole.classList.add('out'); //returns the class name of an element, as a DOMTokenList object.
+
+  setTimeout(() => 
+  {   
+    mole.classList.remove('out');  //returns the class name of an element, as a DOMTokenList object
+
+    if (playingGame <= 0) // if playingGame is less than or queal to 0, then ...
+  {
+    restart.disabled = false;  // restart button enable
+    
+    }
+    
+    else if (playingGame > 0) showMole(); // If playingGame is greater than 0 it will display the moles and within the time range they will change
+  }, time);
+
+
+}
+
+
+var j = 0; // variable
+function changeColor() //function
+{       
+  
+        var x = document.getElementById("change");  //getting id
+        var txtcolor = ["black", "red"]; // color of text
+        x.style.color=txtcolor[j] //changing text color
+        j=[j+1]%txtcolor.length;  
+    
+    
+    setInterval (changeColor, 11000) // when 10 seconds have past the color will change 
+  
+}
+
+      
+
+function scorePoint() //function
+{  
+  score++; // score increase by one
+  scoreBoard.textContent = score; // scoreboard will dispplay score 
+
+  this.classList.remove('out'); //returns the class name of an element, as a DOMTokenList object.
+}
+
+
+function countdown() //function 
+{ 
+  const timer = document.querySelector('.timer'); // gets timer
+
+  interval = setInterval(() =>  // interval equals setInterval times...
+  {  
+    if (playingGame < 0) // If play time is less than 0 then ...
+    { 
+      clearInterval(interval); // stops 
+      return;
+    }
+    
+  
+    timer.textContent = playingGame; 
+    playingGame--; // play time will decrease by one ...
+  }, 1000);  // every 1 second
+}
+
+
+//                                                                             
+
+function randomTime(min, max) // function
+{   
+  return Math.round(Math.random() * (max - min) + min); 
+  // This returns a random number between the specified values. The returned value is no lower than (and may possibly equal) min, and is less than (and not equal) max.
+
+}
+
+
+function randomMole(molesCount)  //function
+{  
+  let index = Math.floor(Math.random() * molesCount),  // function returns the largest integer less than or equal to a given number.
+      mole = moles[index];
+
+  if (index === last) return randomMole(molesCount); //return molesCount if index is last and not a string 
+  last = index;
+
+  return mole;  // return mole
+}
+
+
+function restartGame() //function
+{
+  
+ startGame();  // call function 
+  
+}
+
+
+restart.addEventListener('click', restartGame);  // when clicked restart button restart function will take action
+start.addEventListener('click', startGame); // when clicked start button startGame function will take action
+moles.forEach(mole => mole.addEventListener('click', scorePoint)); // when clicked on moles images, scorePoint function will take action
+
+
+}
+
+</script>
+<body>
+
+  <div class="cursor">
+      <img class="pic" src="images/moleBeater.png">
+  </div>
+
+
+
+
+    <div class="controls">
+      <br>
+      <div class="score">Score: <span>0</span>
+      </div>
+      <br>
+      <div class="text-center">
+       <button type="button"  id="move" class="btn btn-primary" name="start">Start</button>
+       <button type="button" id= "move"class="btn btn-primary" name="Over">Restart Game</button>
+      </div>
+      </div>
+      <br>
+      
+      <div class="control-set">
+        <div class="timer" id="change">Timer: 20 Seconds</div>
+       
+    </div>
+
+
+<div class="game">
+
+<div class="row"> 
+<div class="col-4">
+<div class="hole">
+  <img class="mole" src="images/mole.svg">
+<div class="dirt dirt1">
+  <img src="images/dirt.svg">
+</div>
+</div>
+</div>
+
+<div class="col-4">
+<div class="hole">
+  <img class="mole" src="images/mole.svg">
+<div class="dirt dirt2">
+  <img src="images/dirt.svg">
+</div>
+</div>
+</div>
+
+<div class="col-4">
+<div class="hole">
+  <img class="mole" src="images/mole.svg">
+<div class="dirt dirt3">
+  <img src="images/dirt.svg">
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="row"> 
+
+<div class="col-4">
+<div class="hole">
+  <img class="mole" src="images/mole.svg">
+<div class="dirt dirt4">
+  <img src="images/dirt.svg">
+</div>
+</div>
+</div>
+
+<div class="col-4">
+<div class="hole">
+  <img class="mole" src="images/mole.svg">
+<div class="dirt dirt5">
+  <img src="images/dirt.svg">
+</div>
+</div>
+</div>
+
+<div class="col-4">
+<div class="hole">
+  <img class="mole" src="images/mole.svg">
+<div class="dirt dirt6">
+  <img src="images/dirt.svg">
+</div>
+</div>
+</div>
+
+</div>
+
+
+</body>
+</html>

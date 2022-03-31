@@ -1,0 +1,109 @@
+*
+{
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none;
+
+
+}
+
+
+.cursor, .pic
+{
+
+  position: absolute;
+  height: 110px;
+  z-index: 2;
+  transform: translate(-10px, -20px);
+  pointer-events: none;
+  
+}
+
+#move
+{
+
+  cursor: none;
+}
+
+
+@keyframes hit {
+
+  from
+  {
+  transform: rotate(0deg);
+
+  }
+
+  to
+  {
+
+   transform: rotate(-30deg);
+  }
+
+}
+
+
+
+#change
+{
+
+	color: black; 
+
+}
+
+.hole 
+{
+   height: 100%;
+   position: relative;
+   align-items: center;
+}
+
+.dirt 
+{
+   width: 100%;
+   left: 20px;
+   bottom: 60px;
+   position: absolute;
+}
+
+.dirt img 
+{
+   width: 60%;
+}
+
+
+.mole 
+{
+  width: 30%;
+  height: 120px;
+  opacity: 0;
+  margin: 70px;
+  transform: translateY(10px);
+  transition: all .3s ease-in-out;
+}
+
+.mole.out 
+{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.score, .timer
+{
+
+  text-align: center;
+  font-size: 25px;
+
+}
+
+.game 
+{
+  
+  width: 75vw;
+  height: 10vh;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
