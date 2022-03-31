@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simon Game</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<script>
+
+//                                                                    
+    // JavaScript Simon Game Project
+    // Mahmud Kandawala
+    // Date: 2/25/2021
+  
+//                                                              
+
+window.onload = function() //Will load script when page is loaded
+{  
+  
+const start = document.querySelector('button[name="start"]'); //selecting the button with name start
+
+function startGame() //startGame function
+{
+    theEnd = false; // will be false
+    nextColor(); // call function
+    start.disabled = true; // start button disabled
+}
+
+const restart = document.querySelector('button[name="Over"]'); // selecting button with name restart  
+
+  
+let timeout = 500 // time between color display  
+  
+const blue = document.querySelector(".blue"); // color blue 
+
+const purple = document.querySelector(".purple"); // color purple
+
+const red = document.querySelector(".red");// color red 
+
+const pink = document.querySelector(".pink"); // color pink 
+
+
+let whenAnimate = false;  // will be false when the game is playing
+
+function go(button) // animate the each button when clicked
+ {
+  button.classList.add("press") // adds one class name to element
+  setTimeout(() => // setimeout
+  {
+    button.classList.remove("press") // removes one class name from an element
+  }, 300)
+}
+
+function nextColor () // random new move + add behind to the tires array
+{
+  tries.push(Math.floor((Math.random() * 4) + 1)); // random color 
+  playColor(); // call function
+}
+
+function playColor () // animate whole thing for user 
+{
+  let x = 0; // 0
+  whenAnimate = true; // will be ture
+  let theMove = setInterval(() => // repeats execution of the function continuously
+  {
+    go(colors[tries[x] - 1])
+    x++ // add one
+    if (x >= tries.length) 
+    {
+      clearInterval(theMove); // clear the action
+      whenAnimate = false; // will be false
+    }
+  }, timeout) // using timeout variable defined in the start
+}
+
+let theirTries = []; // array ... storing data
+let theEnd = true; // is true
+document.querySelector(".eachColorButton").addEventListener("click", (e) => //allow the color images to be clicked on
+{
+  if (e.target.classList.contains("button")) // if has the word button then...
+  {
+    if (whenAnimate != true) // if it the game is not playing
+    {
+      go(e.target); // function
+      
+      if (theEnd != true) // if the game is not over
+      {
+        theirTries.push(parseInt(e.target.id)) //add tries to the tries array 
+        rightOrWrong(); //call function
+      }
+    }
+  }
+})
+
+const colors = [red, pink, blue, purple]; // colors being stored
+const losingText = document.querySelector(".losing"); // losing text
+let tries = []; // array
+
+const displayScore = document.querySelector(".score"); // score 
+
+let trackScore = 0; // score starts from zero
+
+function updateScore () // function to update the score on the page
+{
+    displayScore.innerHTML =  trackScore; // display score
+}
+
+function rightOrWrong () // function will check what the user has clicked 
+{
+  let wrong = false; // false
+  
+  whenAnimate = true // true
+  for (let i = 0; i < theirTries.length; i++) // for loop 
+  {
+    if (theirTries[i] !== tries[i]) // when the user clicks the wrong color
+    {
+      wrong = true // true 
+      losingText.innerHTML = "YOU LOSE !!!" // display message 
+      setTimeout(startPlay, 500) // call function with setimeout
+      restartGame() // call function
+    }
+  }
+  if (theirTries.length >= tries.length && wrong != true) // if the user gets the color right
+  {
+    if (theirTries.toString() === tries.toString()) // if correct
+     {
+      trackScore++ // add one to the score
+      updateScore(); // call function
+      setTimeout(nextColor, 1000); // call function with setimeout
+      }
+    theirTries = []; // array
+    wrong = false; // false
+  }
+  whenAnimate = false; // false
+}
+
+function restartGame () // Reset the game
+{
+  window.location.reload(); // reload the page 
+}
+
+start.addEventListener("click", startGame); // when clicked start button startGame function will take action
+restart.addEventListener("click", restartGame);  // when clicked restart button restart function will take action
+}
+</script>
+<body>
+    
+ <button type="button" id="move" class="one" name="start">Start</button>
+ <span class="score">0</span>
+ <button type="button" id= "move" class="one" name="Over">Restart</button>
+  
+  <br>
+
+<div class="eachColorButton">
+      
+  <div class="top">
+  <div id="1" class="button red" data-color="red"></div>
+  <div class="button blue" data-color="blue" id="3"></div>
+  </div>
+    
+  <div class="bottom">
+  <div class="button purple" data-color="purple" id="4"></div>
+  <div id="2" class="button pink" data-color="pink"></div>
+  
+  </div>
+  <br>
+  <div class="losing"></div>
+   
+  </div>
+  
+</body>
+</html> 

@@ -1,0 +1,81 @@
+body 
+{
+display: flex;
+font-family:"Courier New, Courier, monospace";
+flex-direction: column;
+align-items: center;
+}
+
+.one
+{
+margin: 10px;
+padding: 5px 25px;
+background: blue;
+font-size: 20px;
+color: white;
+border: 3px solid #000000;
+border-radius: 100px;
+}
+
+.button 
+{
+background-size: contain;
+}
+
+.losing 
+{
+color: red;
+font-size: 40px;
+text-align:center;
+}
+
+.score 
+{
+font-size: 30px;
+margin-left: auto;
+margin-right: auto;
+color:red;
+}
+.pink,.blue,.purple,.red
+{
+width: 225px;
+height: 225px;
+}
+
+.pink 
+{
+background-image: url("images/pinkdark.png");
+
+}
+.pink.press 
+{
+background-image: url("images/pinklight.png");
+}
+.blue 
+{
+background-image: url("images/bluedark.png");
+}
+.blue.press 
+{
+background-image: url("images/bluelight.png");
+}
+.red 
+{
+background-image: url("images/reddark.png");
+}
+.red.press 
+{
+background-image: url("images/redlight.png");
+}
+.purple 
+{
+background-image: url("images/purpledark.png");
+}
+.purple.press 
+{
+background-image: url("images/purplelight.png");
+}
+.top,.bottom 
+{
+display: flex;
+}

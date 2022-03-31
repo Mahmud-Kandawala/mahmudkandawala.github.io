@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <title>Match Game</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<script type="text/javascript">
+
+//                                                                    
+    // JavaScript Match Game Project
+    // Mahmud Kandawala
+    // Date: 1/29/2021
+  
+//                                                              
+
+window.onload = function() //Will load script when page is loaded
+{   
+
+const start = document.querySelector('button[name="start"]'); //selecting the button with name start
+let time = 1000; //effect duration
+matches = 0; // matches equals zero
+
+const restart = document.querySelector('button[name="Over"]'); // selecting button with name restart  
+restart.disabled = true; // restart button disabled
+
+let pokerCardsContainer = document.querySelector(".pokerCards"); //select container
+let square = Array.from(pokerCardsContainer.children); // create array & a collection of element nodes the elements in the returned collection are sorted
+
+let orderRange = Array.from(Array(square.length).keys()); // create range of keys & returns an array iterator object with the keys of an array
+shuffle(orderRange); 
+
+function startGame() //startGame function
+{
+  start.disabled = true; // start button disabled 
+  square.forEach((block, index) => 
+  {
+    block.style.order = orderRange[index];  // add css order property
+    block.addEventListener('click', function ()   // add click event
+   {
+    cardTurning(block); // function (allow cards to turn) 
+   });
+ });
+}
+
+function shuffle(array) // function
+{
+  let current = array.length, temp, randomize;
+ 
+  while (current > 0) 
+  {
+    randomize = Math.floor(Math.random() * current); // get random number
+    current--; // decrease length by one
+    temp = array[current]; // save current element 
+    array[current] = array[randomize]; // current element = random element
+    array[randomize] = temp; // random element = get element 
+  }
+  return array; // return array
+}
+
+function cardTurning(selectedSquare) // function
+{
+  selectedSquare.classList.add('is-flipped'); // add class is-flipped
+  
+  let allFlippedSquare = square.filter(flippedBlock => flippedBlock.classList.contains('is-flipped')); // collect all flipped cards
+
+  if (allFlippedSquare.length === 2) 
+  {
+    stopClicking();// function
+    checkMatchedSquare(allFlippedSquare[0], allFlippedSquare[1]); // check matched block function
+  }
+}
+
+function checkMatchedSquare(firstCard, secondCard) // function
+{
+  let attemptsTook = document.querySelector('.tries span'); // get from html
+  
+  if (firstCard.dataset.card === secondCard.dataset.card) 
+  {
+    firstCard.classList.remove('is-flipped'); // remove flip
+    secondCard.classList.remove('is-flipped'); // remove flip
+
+    firstCard.classList.add('has-match'); // add has match
+    secondCard.classList.add('has-match'); // add has match
+    matches++; // increment matches 
+    
+      if(matches >= 8) 
+      {
+      document.getElementById('won').innerHTML = "Congarts, You Won!!!" // text will display
+      restart.disabled = false; // button not disabled
+      }
+  } 
+  else
+  {
+    attemptsTook.innerHTML = parseInt(attemptsTook.innerHTML) + 1; // add one to attempts each time
+
+    setTimeout(() => 
+    {
+      firstCard.classList.remove('is-flipped'); // remove flip
+      secondCard.classList.remove('is-flipped'); // remove flip
+
+    }, time);
+  }
+}
+
+function stopClicking() // function
+{
+  pokerCardsContainer.classList.add('no-clicking'); // add no clicking  
+  setTimeout(() => // wait time
+  {
+  pokerCardsContainer.classList.remove('no-clicking'); // remove no clicking 
+  }, time);
+}
+
+function restartGame() //function
+{
+  window.location.reload();  // reload page
+}
+
+start.addEventListener('click', startGame); // when clicked start button startGame function will take action
+restart.addEventListener('click', restartGame);  // when clicked restart button restart function will take action
+}
+</script> 
+<body>
+  <br>
+  <button type="button" id="move" name="start">Start</button>
+  <button type="button" id= "move" name="Over">Restart Game</button>
+  <br>
+  <br>
+  <div class="tries">
+   Number of Attempts: <span>0</span>
+  </div>
+  <p id="won"></p>
+  <br>
+  <br>
+  <div class="pokerCards">
+  <div class="card-Display" data-card="one">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/1.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="one">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src="images/1.jpg">
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="two">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/2.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="two">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/2.jpg'>
+  </div>
+  </div>
+  <div class="card-Display" data-card="three">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/3.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="three">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/3.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="four">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/4.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="four">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/4.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="five">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/5.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="five">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/5.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="six">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/6.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="six">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/6.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="seven">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/7.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="seven">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/7.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="eight">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/8.jpg'>
+  </div>
+  </div>
+
+  <div class="card-Display" data-card="eight">
+  <div class="face front"></div>
+  <div class="face back">
+  <img src='images/8.jpg'>
+  </div>
+  </div>
+</div>
+</body>
+</html>

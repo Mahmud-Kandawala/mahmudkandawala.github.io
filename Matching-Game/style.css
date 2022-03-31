@@ -1,0 +1,91 @@
+* 
+{
+box-sizing: border-box;
+}
+
+body
+{
+font-family:"Courier New, Courier, monospace";
+}
+
+.pokerCards 
+{
+display: flex;
+width: 900px;
+flex-wrap: wrap;
+margin: 30px auto;
+}
+
+.pokerCards .card-Display 
+{
+height: 200px;
+transition: transform .5s;
+transform-style: preserve-3d;
+position: relative;
+flex: 200px;
+margin: 0 5px 5px;
+}
+
+.pokerCards .card-Display .front
+{
+background-color:  #3385ff;
+}
+
+.pokerCards .card-Display .back 
+{
+background-color:  #3385ff;
+transform: rotateY(180deg);
+}
+
+.pokerCards .card-Display .back img 
+{
+width: 105px;
+height: 145px;
+}
+
+.pokerCards .card-Display .face
+{
+position: absolute;
+width: 105px;
+height: 145px;
+text-align: center;
+backface-visibility: hidden;
+}
+
+.pokerCards .card-Display.is-flipped,
+.pokerCards .card-Display.has-match 
+{
+-webkit-transform: rotateY(180deg);
+-moz-transform: rotateY(180deg);
+transform: rotateY(180deg);
+}
+
+.tries
+{
+text-align: center;
+font-size: 23px;
+color: black;
+}
+
+span
+{
+text-align: center;
+font-size: 26px;
+color: red;
+}
+
+#won
+{
+color: green;
+font-size: 32px;
+text-align: center;
+}
+
+button
+{
+text-align: center;
+margin-left: 46%;
+margin-right: 50%;
+width: 110px;
+height: 40px;
+}

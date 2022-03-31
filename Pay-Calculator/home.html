@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Mahmud's Pay Calculator</title>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+
+
+<script src="pay.js"></script>
+                                            
+</head>
+
+<body>
+
+<center>
+    <h1>Pay Calculator</h1>
+</center>
+<hr>
+<br><br>
+	<table>
+		<tr>
+			<td>Your Name</td>
+			<td><div class = "adj" id="nmp"><input id = "name" autofocus></div></td> <!--Input it will become a display-->
+		</tr>
+		<tr>
+			<td>Your Pay Rate</td>
+			<td><div class = "adj" id="rtp"><input id = "rate"></div></td><!--Input it will bcome a display also of what was typed -->
+		</tr>
+		<tr>
+			<td>Hours You Worked</td>
+			<td><div class = "adj" id = "hrp"><input id = "hours"></div></td><!--Input as above it will becom a display -->
+		</tr>
+		<tr>
+			<td>Overtime hours Worked</td>
+			<td><div class = "adj" id = "overhoursworked"></div></td><!--This will display overtime hours, anything over 40-->
+
+		</tr>
+	</table>
+<p id = "button" class = "over">
+		<br>
+		<button onclick="paycalc()" class = "buttonsmall">Calculate Pay</button>
+		<button onclick = 'reloadp()' class = "buttonsmall">Reset Page</button><!--This calls a function that clears the page -->
+		<a href=../home.html><button class="buttonsmall">Home</button></a>
+</p>
+
+<div id = "information">
+
+	<table>
+		<tr>
+			<td>Regular Pay</td>
+			<td class = "white" id = "regular"></td><!--reg pay box -->
+		</tr>
+		<tr>
+			<td>Overtime Pay</td>
+			<td class = "white" id = "overpaid"></td><!--overtime pay box -->
+		</tr>
+	</table>
+	<table class = "expand">
+		<tr>
+
+			<td>Total Net Pay</td>
+			<td class = "white" id = "netpaid"></td><!--This will be a sum of both pages-->
+		</tr>
+	</table>
+	<br>
+	
+	<table>
+		<tr>
+			<td>Deductions</td>
+		</tr>
+	</table>
+	
+	<table>
+		<tr>
+			<td>Federal Witheld @ 12.59%</td>
+			<td class = "white" id="fed"></td><!--8% of the Net pay-->
+		</tr>
+		<tr>
+			<td>FICA @ 7.65%</td>
+			<td class = "white" id="fica"></td><!--7% of the Net-->
+		</tr>
+		<tr>
+			<td>State Withheld @ 4.82%</td>
+			<td class = "white" id="state"></td><!--4% of the net-->
+		</tr>
+		<tr>
+			<td>Insurance @ $26.54</td>
+			<td class = "white" id="ins"></td><!--This is a set value of $26.54-->
+		</tr>
+	</table>
+	
+	<table class = "expand">
+		<tr>
+			<td>Total Deductions</td>
+			<td class = "white" id = "deduc"></td> <!--All sum of Deductions will go here-->
+		</tr>
+	</table>
+	<br>
+	
+	<table class = "expand1">
+		<tr>
+			<td class = "blue">TOTAL PAY</td>
+		</tr>
+	</table>
+	
+	<table class = "expand1">
+		<tr>
+			<td class = "bigBlue" id = "payt"></td>
+			<td id = "nameo"></td>
+		</tr>
+	</table>
+			
+<div id = "reset"></div>
+
+</body>
+
+</html>
