@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hangman Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src='main.js'></script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+<body>
+
+<!--
+
+  JavaScript Hangman Game Project
+     Mahmud Kandawala
+     Due Date: 9/17/2021
+
+-->
+  
+
+  <header>
+    <h1>Anime Characters Hangman Game</h1> 
+  </header>
+  
+
+  <main class='container'>
+   
+    <div id='gameBoard' class='game-board-wrapper'>
+    
+    <img id='hangman-display' class='hangman-display' src='images/Hangman-number-6.png' alt='hangman-game-display'>
+      <br>
+      <div id='letterBoard'></div>
+    
+    </div>
+    
+    <br>
+  
+    <div id='button-container' class='button-container'>
+     
+      <div id='resetButtonContainer'>
+        <button id='startButton' class='btn btn-primary btn-lg'>Start</button>
+      </div>
+     
+      <div id='guessesRemainingDisplay'>
+        Incorrect guesses remaining: <span id='numberOfGuessesRemaining'>6</span>
+      </div>
+    
+      <br>
+      <br>
+
+      <p id='games-won'>Games Won: <span id='number-of-games-won'>0</span></p>
+      
+      <br>
+      
+      <p>Games Lost: <span id='number-of-games-lost'>0</span></p>
+      <button id='reset-score-board' class='btn btn-primary btn-lg'>Reset Score Board</button>
+    
+    </div>
+    
+    <br>
+    <br>
+
+    <div id='containerForHiddenLetterList'>
+      <br>
+      <div id='hiddenLetterList' class='container'></div>
+    </div>
+   
+  </main>
+
+</body>
+</html>
